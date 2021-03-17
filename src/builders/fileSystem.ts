@@ -1,5 +1,6 @@
 import path from "path";
 
+import { camelCase } from 'lodash';
 import { buildImportPath } from "../builder";
 import { BaseUrl } from "../options/baseUrl";
 import { Logger } from "../options/logger";
@@ -19,8 +20,9 @@ function stringify(
   const nextIndentation = previousIndentation + indentation;
   let content = "";
   for (const key of Object.keys(structure).sort()) {
+    const cleanKey = camelCase(key)
     content += `
-${nextIndentation}${key}: `;
+${nextIndentation}${cleanKey}: `;
     const exported = structure[key];
     if (typeof exported === "string") {
       content += exported;

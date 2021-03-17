@@ -4,14 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
+const lodash_1 = require("lodash");
 const builder_1 = require("../builder");
 const utilities_1 = require("../utilities");
 function stringify(structure, previousIndentation) {
     const nextIndentation = previousIndentation + utilities_1.indentation;
     let content = "";
     for (const key of Object.keys(structure).sort()) {
+        const cleanKey = lodash_1.camelCase(key);
         content += `
-${nextIndentation}${key}: `;
+${nextIndentation}${cleanKey}: `;
         const exported = structure[key];
         if (typeof exported === "string") {
             content += exported;
